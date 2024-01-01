@@ -1,0 +1,70 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  person(id: ID!): Person
+
+  personen(input: Suchkriterien): [Person!]
+}
+
+type Mutation {
+  create(input: PersonInput!): CreatePayload
+}
+
+type Person {
+  id: ID
+  nachname: String!
+  email: String!
+  geburtsdatum: String
+  geschlecht: String
+  beruf: String
+  fakultaet: Studiengang!
+  leserid: String
+}
+
+type Studiengang {
+  fakultaet: Fakultaet
+}
+
+input Suchkriterien {
+  nachname: String
+  email: String
+}
+
+input PersonInput {
+  nachname: String!
+  email: String!
+  geburtsdatum: String
+  geschlecht: Geschlecht
+  beruf: Beruf
+  fakultaet: StudiengangInput!
+  leserid: String
+}
+
+input StudiengangInput {
+  fakultaet: Fakultaet
+}
+
+enum Geschlecht {
+  WEIBLICH
+  MAENNLICH
+}
+
+enum Beruf {
+  STUDENT
+  DOZENT
+  HAUSMEISTER
+}
+
+enum Fakultaet {
+  WIRTSCHAFTSINFORMATIK
+  INFORMATIK
+  BETRIEBSWIRTSCHAFTSLEHRE
+  VOLKSWIRTSCHAFTSLEHRE
+}
+
+type CreatePayload {
+  id: String!
+}
