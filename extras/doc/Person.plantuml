@@ -1,0 +1,80 @@
+@startuml Person
+
+skinparam classAttributeIconSize 0
+
+package java {
+    package util {
+        class UUID
+        interface List<T>
+    }
+
+    package time {
+        class LocalDate
+    }
+}
+
+package jakarta.persistence {
+    interface "@Entity" as Entity
+    interface "@Table" as Table
+
+    Entity -[hidden]down-> Table
+    LocalDateTime .up[hidden].> Table
+}
+
+package com.acme.hochschule.entity #DDDDDD {
+    enum GeschlechtType {
+        MAENNLICH
+        WEIBLICH
+    }
+
+    enum BerufType {
+        STUDENT
+        DOZENT
+        HAUSMEISTER
+    }
+
+    enum FakultaetType {
+        WIRTSCHAFTSINFORMATIK
+        INFORMATIK
+        BETRIEBSWIRTSCHAFTSLEHRE
+        VOLKSWIRTSCHAFTSLEHRE
+    }
+
+    class Person << entity >> << @Entity >>  << @Table >> {
+        id : UUID
+        nachname : String
+        email : String
+        geburtsdatum: LocalDate
+        geschlecht: GeschlechtType
+        beruf: BerufType
+        fakultaet: Studiengang
+    }
+
+    class Studiengang << entity >> << @Entity >> << @Table >> {
+        id : UUID
+        fakultaet: FakultaetType
+        personen: List<Person>
+    }
+
+    Person .up.> GeschlechtType
+    Person .up.> BerufType
+    Person .up.> FakultaetType
+
+    Person ..> UUID
+    Person ..> LocalDate
+
+    Studiengang .up.> FakultaetType
+    Studiengang --> "0..*" Person : studiengang
+
+    Studiengang ..> List
+    Studiengang ..> UUID
+
+    Person .right.> Entity
+    Person .right.> Table
+}
+
+hide empty members
+
+footer Konstantin Kraus
+
+@enduml

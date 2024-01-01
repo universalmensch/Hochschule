@@ -1,0 +1,49 @@
+= Entwicklerhandbuch
+Konstantin Kraus <krko1012@h-ka.de>
+:doctype: book
+:toc: left
+:sectanchors:
+:sectlinks:
+:sectnums:
+:source-highlighter: coderay
+:icons: font
+
+== Der Microservice Hochschule
+
+=== Der Microservice im Überblick
+
+=== Die REST-Schnittstelle
+
+."PersonGetController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,PersonGetController,svg]
+----
+include::./PersonGetController.plantuml[]
+----
+
+."PersonWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,PersonWriteController,svg]
+----
+include::./PersonWriteController.plantuml[]
+----
+
+=== Die Geschäftslogik
+
+.Die Service-Klasse "PersonReadService" für die Geschäftslogik
+[plantuml,PersonReadService,svg]
+----
+include::./PersonReadService.plantuml[]
+----
+
+.Die Service-Klasse "PersonWriteService" für die Geschäftslogik
+[plantuml,PersonWriteService,svg]
+----
+include::./PersonWriteService.plantuml[]
+----
+
+=== Die Entity-Klassen
+
+.Die Entity-Klasse "Person" für Personendaten
+[plantuml,Person,svg]
+----
+include::./Person.plantuml[]
+----

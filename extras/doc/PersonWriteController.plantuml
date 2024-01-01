@@ -1,0 +1,78 @@
+@startuml PersonWriteController
+
+skinparam classAttributeIconSize 0
+
+package org.springframework {
+    package web.bind.annotation {
+        interface "@RestController" as RestController
+        interface "@RequestMapping" as RequestMapping
+        interface "@PathVariable" as PathVariable
+        interface "@RequestBody" as RequestBody
+        interface "@ExceptionHandler" as ExceptionHandler
+    }
+
+    package http {
+        class ResponseEntity<T>
+        class ProblemDetail
+    }
+}
+
+package jakarta.servlet.http {
+    interface HttpServletRequest
+}
+
+package java.util {
+    interface Collection<T>
+    class UUID
+    class Optional<T>
+}
+
+package com.acme.hochschule {
+    package service {
+        class PersonWriteService << control >> << @Service >>
+
+        class ConstraintViolationsException
+        class EmailExistsException
+        class VersionOutdatedException
+    }
+
+    package rest #DDDDDD {
+
+        class PersonDTO <<entity>>
+        class VersionInvalidException
+
+        class PersonWriteController << boundary >> << @RestController >> << @RequestMapping >> {
+            + @PostMapping create(@RequestBody PersonDTO: PersonDTO, request: HttpServletRequest): ResponseEntity<Void>
+            + @PutMapping update(@PathVariable id: UUID, @RequestBody PersonDTO: PersonDTO)
+            + @ExceptionHandler onConstraintViolations(ex: ConstraintViolationsException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
+            + @ExceptionHandler onEmailExists(ex: EmailExistsException, req: HttpServletRequest): ResponseEntity<ProblemDetail>
+        }
+
+        PersonWriteController o-down-> "1" PersonWriteService : service
+        PersonWriteController ..> PersonDTO
+        PersonWriteController ..> ConstraintViolationsException
+        PersonWriteController ..> EmailExistsException
+        PersonWriteController ..> VersionOutdatedException
+        PersonWriteController ..> VersionInvalidException
+
+        PersonWriteController .up.> ResponseEntity
+        PersonWriteController .up.> ProblemDetail
+        PersonWriteController .up.> Optional
+        PersonWriteController .right.> HttpServletRequest
+
+        PersonWriteController .up.> RestController
+        PersonWriteController .up.> RequestMapping
+        PersonWriteController .up.> PathVariable
+        PersonWriteController .up.> RequestBody
+        PersonWriteController .up.> ExceptionHandler
+
+        PersonWriteController .right.> UUID
+        PersonWriteController .right.> Collection
+    }
+}
+
+hide empty members
+
+footer Konstantin Kraus
+
+@enduml

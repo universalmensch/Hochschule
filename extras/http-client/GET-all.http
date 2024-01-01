@@ -1,0 +1,3 @@
+### Suche alle Personen
+GET {{restUrl}}
+Accept: application/hal+json

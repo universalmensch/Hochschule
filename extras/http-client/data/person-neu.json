@@ -1,0 +1,11 @@
+{
+  "nachname" : "Jonas",
+  "email" : "EnJo1012@h-ka.de",
+  "geburtsdatum" : "2007-04-21",
+  "geschlecht" : "M",
+  "fakultaet" : {
+    "fakultaet" : "WI"
+  },
+  "beruf" : "S",
+  "leserid" : "00000000-0000-0000-0000-000000000005"
+}

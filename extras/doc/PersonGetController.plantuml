@@ -1,0 +1,93 @@
+@startuml PersonGetController
+
+skinparam classAttributeIconSize 0
+
+package jakarta.servlet.http {
+    class HttpServletRequest
+}
+
+package org.springframework {
+    package web.bind.annotation {
+        interface "@RestController" as RestController
+        interface "@RequestMapping" as RequestMapping
+        interface "@PathVariable" as PathVariable
+        interface "@RequestParam" as RequestParam
+        interface "@ExceptionHandler" as ExceptionHandler
+        interface "@ResponseStatus" as ResponseStatus
+    }
+
+    package http {
+        class ResponseEntity<T>
+    }
+    package hateoas {
+        class CollectionModel<E>
+    }
+    package util {
+        class MultiValueMap<K,V>
+    }
+}
+
+package jakarta.servlet.http {
+    interface HttpServletRequest
+}
+
+package java.util {
+    class UUID
+}
+
+package com.acme.hochschule {
+    package entity {
+        class Person << entity >>
+    }
+
+    package repository {
+            class Leser
+        }
+
+    package service {
+        class PersonReadService << control >> << @Service >>
+        class NotFoundException
+    }
+
+    package rest #DDDDDD {
+        class PersonModel <<entity>>
+
+        class PersonGetController << boundary >> << @RestController >> << @RequestMapping >> {
+            + @GetMapping findById(@PathVariable id: UUID, request: HttpServletRequest): PersonModel
+            + @GetMapping findLeserById(@PathVariable id: UUID): Leser
+            + @GetMapping find(@RequestParam queryParams: MultiValueMap<String, String>, request: HttpServletRequest): CollectionModel<PersonModel>
+        }
+
+        class CommonExceptionHandler << @ControllerAdvice >> {
+            + @ExceptionHandler @ResponseStatus onNotFound(ex: NotFoundException)
+        }
+
+        PersonGetController o--> "1" PersonReadService : service
+        PersonGetController ..> PersonModel
+        PersonGetController ..> Person
+        PersonGetController ..> Leser
+
+        PersonGetController .up.> RestController
+        PersonGetController .up.> RequestMapping
+        PersonGetController .up.> PathVariable
+        PersonGetController .up.> RequestParam
+        PersonGetController .up.> ResponseEntity
+        PersonGetController .up.> MultiValueMap
+        PersonGetController .up.> CollectionModel
+        PersonGetController .right.> HttpServletRequest
+
+        CommonExceptionHandler .up.> ExceptionHandler
+        CommonExceptionHandler .up.> ResponseStatus
+        CommonExceptionHandler ..> NotFoundException
+
+        PersonGetController .right.> UUID
+
+        PersonModel ..> Person
+    }
+}
+
+hide empty members
+
+footer Konstantin Kraus
+
+@enduml

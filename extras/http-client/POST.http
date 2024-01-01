@@ -1,0 +1,11 @@
+### Eine neue Person anlegen
+POST {{restUrl}}
+Content-Type: application/json
+
+< data/person-neu.json
+
+### Eine neue Person mit bereits existierender Emailadresse anlegen: 422 (Unprocessable Entity)
+POST {{restUrl}}
+Content-Type: application/json
+
+< data/person-neu-E-Mail-Exists.json

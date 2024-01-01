@@ -1,0 +1,20 @@
+### Einen neue Person anlegen
+GRAPHQL {{graphqlUrl}}
+
+mutation{
+  create(
+    input: {
+      nachname: "Egbert"
+      email: "egfl1011@h-ka.de"
+      geburtsdatum: "2003-02-01"
+      geschlecht: WEIBLICH
+      beruf: STUDENT
+      fakultaet: {
+        fakultaet: VOLKSWIRTSCHAFTSLEHRE
+      }
+      leserid : "00000000-0000-0000-0000-000000000002"
+    }
+  ) {
+    id
+  }
+}

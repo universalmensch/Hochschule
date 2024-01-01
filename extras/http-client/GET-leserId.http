@@ -1,0 +1,5 @@
+### GET mit vorhandener Leser-ID
+### Bei der Übertragung stimmt noch etwas mit der Request nicht und entsprechend greift wegen der BAD-Request
+### die WebclientException, leider hatten wir nicht mehr genügend Zeit dies zu beheben.
+GET {{restUrl}}/leser/00000000-0000-0000-0000-000000000005
+Accept: application/hal+json

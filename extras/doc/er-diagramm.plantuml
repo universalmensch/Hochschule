@@ -1,0 +1,37 @@
+@startuml ER Diagramm
+
+hide circle
+
+skinparam linetype ortho
+
+entity "Person" {
+  * id : UUID <<generated>>
+  --
+  * nachname : text
+  * email : text <<unique>>
+  * kategorie: integer
+    geburtsdatum: date
+    geschlecht: char
+    beruf: text
+  * erzeugt: timestamp
+  * aktualisiert: timestamp
+  * fakultaet_id: UUID <<FK>>
+  * leser_id: UUID <<FK>>
+}
+
+entity "Studiengang" {
+  * id : UUID <<generated>>
+  --
+  * fakultaet : char <<unique>>
+}
+
+entity "Leser" {
+  * id : UUID <<generated>>
+}
+
+Studiengang ||.right.o{ Person
+Person ||.right.|| Leser
+
+footer (c) Konstantin Kraus
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml PersonWriteService
+
+skinparam classAttributeIconSize 0
+
+package org.springframework.stereotype {
+    interface Service
+}
+
+package java.util {
+    class UUID
+}
+
+package com.acme.hochschule {
+    package entity {
+        class Person << entity >>
+    }
+
+    package repository {
+        class PersonRepository << control >> << @Repository >>
+    }
+
+    package service #DDDDDD {
+        class PersonWriteService << control >> << @Service >> {
+            + create(Person: Person): Person
+            + update(Person: Person, id: UUID)
+        }
+
+        PersonWriteService o--> "1" PersonRepository : repo
+        PersonWriteService .right.> Person
+        PersonWriteService .up.> Service
+        PersonWriteService .up.> UUID
+    }
+}
+
+hide empty members
+
+footer Konstantin Kraus
+
+@enduml

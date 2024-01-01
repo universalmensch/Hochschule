@@ -1,0 +1,7 @@
+### Suche mit vorhandener Kunde-ID
+GET {{restUrl}}/00000000-0000-0000-0000-000000000000
+Accept: application/hal+json
+
+### Suche mit vorhandener Kunde-ID
+GET {{restUrl}}/00000000-0000-0000-0000-000000000002
+Accept: application/hal+json

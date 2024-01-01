@@ -1,0 +1,56 @@
+@startuml PersonReadService
+
+skinparam classAttributeIconSize 0
+
+package org.springframework {
+    package stereotype {
+        interface Service
+    }
+
+    package security.core.userdetails {
+        interface UserDetails
+    }
+}
+
+package java.util {
+    interface List<T>
+    interface Map<K,V>
+    class UUID
+
+}
+
+package com.acme.hochschule {
+    package entity {
+        class Person << entity >>
+    }
+
+    package repository {
+        class PersonRepository << control >> << @Repository >>
+        interface BibliothekRepository << control >> << @Repository >>
+        class Leser
+    }
+
+    package service #DDDDDD {
+        class PersonReadService << control >> << @Service >> {
+            + findById(id: UUID): Person
+            + findLeserById(id: UUID): Leser
+            + find(queryParams: Map<String, String>): List<Person>
+        }
+
+        PersonReadService o--> PersonRepository : repo
+        PersonReadService o--> BibliothekRepository : repo
+        PersonReadService .right.> Person
+        PersonReadService .right.> Leser
+        PersonReadService .up.> Service
+        PersonReadService .up.> UUID
+        PersonReadService .up> List
+        PersonReadService .up.> Map
+        PersonReadService ..> UserDetails
+    }
+}
+
+hide empty members
+
+footer Konstantin Kraus
+
+@enduml

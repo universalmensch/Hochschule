@@ -1,0 +1,6 @@
+### Eine Person mittels PUT aktualisieren
+PUT {{restUrl}}/00000000-0000-0000-0000-000000000002
+If-Match: "0"
+Content-Type: application/json
+
+< data/person-02-put.json
